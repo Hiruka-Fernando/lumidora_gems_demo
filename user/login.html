@@ -19,6 +19,28 @@
       rel="stylesheet"
     />
 <link rel="stylesheet" href="css/login.css" />
+
+<style>
+  .temp-dashboard-btn {
+  position: absolute;
+  right: 0;   
+  top: 50%; 
+  transform: translateY(-50%);
+  padding: 6px 16px;
+  background: #c9a227;
+  color: #000;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.temp-dashboard-btn:hover {
+  background: #e6c44d;
+  color: #000;
+}
+</style>
   </head>
   <body>
     <!-- NIGHT SKY – pure random shining dots, just like a calm clear night, no orbs, no diamonds -->
@@ -30,10 +52,15 @@
         <a href="index.html" class="back-home">
           <i class="fas fa-arrow-left"></i> Back to Home
         </a>
-            <a href="#" class="logo">
-              <img src="../assets/logo.png" alt="Ceylon Lumidora Gems Logo" class="logo-img">
-              <span>Ceylon Lumidora Gems</span>
-            </a>
+
+        <a href="#" class="logo">
+          <img src="../assets/logo.png" alt="Ceylon Lumidora Gems Logo" class="logo-img">
+          <span>Ceylon Lumidora Gems</span>
+        </a>
+
+        <a href="../admin/dashboard.html" class="temp-dashboard-btn">
+          admin <i class="fas fa-arrow-right"></i>
+        </a>
       </div>
     </header>
 
