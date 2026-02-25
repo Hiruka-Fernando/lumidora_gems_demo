@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Orders | Lumidora Admin</title>
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet"/>
+
+  <!-- Bootstrap -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="../user/css/styles.css" />
+
+  <style>
+    body { padding-top: 0; }
+
+    .admin-wrapper { display: flex; min-height: 100vh; }
+
+    .sidebar {
+      width: 260px;
+      background: var(--primary);
+      color: white;
+      padding: 30px 20px;
+      position: fixed;
+      height: 100vh;
+    }
+
+    .sidebar h3 {
+      color: var(--accent);
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 15px;
+      border-radius: var(--radius);
+      margin-bottom: 12px;
+      transition: var(--transition);
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    .main-content {
+      margin-left: 260px;
+      padding: 40px;
+      flex: 1;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+      padding: 14px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background: #f8f8f8;
+      font-weight: 600;
+    }
+
+    .status-select {
+      padding: 6px 10px;
+      border-radius: var(--radius);
+      border: 1px solid #ddd;
+    }
+
+    .delete-btn {
+      background: crimson;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: var(--radius);
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="admin-wrapper">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h3>Lumidora Admin</h3>
+      <a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+      <a href="products.html"><i class="fas fa-gem"></i> Products</a>
+      <a href="orders.html" class="active"><i class="fas fa-shopping-cart"></i> Orders</a>
+      <a href="customers.html"><i class="fas fa-users"></i> Customers</a>
+      <a href="shipping.html"><i class="fas fa-truck"></i> Shipping </a>
+      <a href="analytics.html"><i class="fas fa-chart-pie"></i> Analytics</a>
+      <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+
+      <hr style="border-color: rgba(255, 255, 255, 0.2)" />
+
+      <a href="../user/index.html">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h2>Orders Management</h2>
+    <br>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Customer</th>
+          <th>Total (USD)</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="orders-table">
+        <!-- Orders will load here -->
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+function renderOrders() {
+
+  const table = document.getElementById("orders-table");
+  table.innerHTML = "";
+
+  if (orders.length === 0) {
+    table.innerHTML = `
+      <tr>
+        <td colspan="6" style="text-align:center;">No orders found.</td>
+      </tr>
+    `;
+    return;
+  }
+
+  orders.forEach(order => {
+
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>#${order.id}</td>
+      <td>${order.customer || "Guest"}</td>
+      <td>$${order.total.toFixed(2)}</td>
+      <td>${new Date(order.date).toLocaleDateString()}</td>
+      <td>
+        <select class="status-select" onchange="updateStatus(${order.id}, this.value)">
+          <option value="Pending" ${order.status === "Pending" ? "selected" : ""}>Pending</option>
+          <option value="Processing" ${order.status === "Processing" ? "selected" : ""}>Processing</option>
+          <option value="Shipped" ${order.status === "Shipped" ? "selected" : ""}>Shipped</option>
+          <option value="Completed" ${order.status === "Completed" ? "selected" : ""}>Completed</option>
+          <option value="Cancelled" ${order.status === "Cancelled" ? "selected" : ""}>Cancelled</option>
+        </select>
+      </td>
+      <td>
+        <button class="delete-btn" onclick="deleteOrder(${order.id})">Delete</button>
+      </td>
+    `;
+
+    table.appendChild(row);
+  });
+}
+
+function updateStatus(id, newStatus) {
+  const order = orders.find(o => o.id === id);
+  if (!order) return;
+
+  order.status = newStatus;
+  localStorage.setItem("orders", JSON.stringify(orders));
+}
+
+function deleteOrder(id) {
+  if (!confirm("Are you sure you want to delete this order?")) return;
+
+  orders = orders.filter(o => o.id !== id);
+  localStorage.setItem("orders", JSON.stringify(orders));
+  renderOrders();
+}
+
+renderOrders();
+
+</script>
+
+</body>
+</html>

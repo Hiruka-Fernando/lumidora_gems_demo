@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us</title>
+
+    <!-- Icons & Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/contact.css" />
+  </head>
+  <body>
+    <!-- ================= HEADER ================= -->
+    <header>
+      <div class="container">
+        <nav class="navbar">
+          <a href="#" class="logo">
+            <img
+              src="../assets/logo.png"
+              alt="Ceylon Lumidora Gems Logo"
+              class="logo-img"
+            />
+            <span>Ceylon Lumidora Gems</span>
+          </a>
+
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+
+          <div class="nav-icons">
+            <a href="#" id="wishlist-btn">
+              <i class="far fa-heart"></i>
+              <span class="wishlist-count">0</span>
+            </a>
+
+            <a href="#" id="cart-btn">
+              <i class="fas fa-shopping-bag"></i>
+              <span class="cart-count">0</span>
+            </a>
+
+            <a href="#" id="login-btn" class="btn btn-outline">Login</a>
+
+            <button class="hamburger" id="hamburger">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+          <a href="#home">Home</a>
+          <a href="#shop">Shop</a>
+          <a href="about.html">About</a>
+          <a href="#contact">Contact</a>
+
+          <div class="mobile-icons">
+            <a href="#" id="mobile-wishlist">
+              <i class="far fa-heart"></i>
+              <span class="wishlist-count">0</span>
+            </a>
+
+            <a href="#" id="mobile-cart">
+              <i class="fas fa-shopping-bag"></i>
+              <span class="cart-count">0</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="contact-section">
+      <div class="container contact-grid">
+        <!-- LEFT -->
+        <div class="contact-card">
+          <h3>Ceylon Lumidora Gems</h3>
+
+          <p>
+            <strong>Address:</strong><br />
+            415/11/C, Leyland Road, Panagoda,<br />
+            Homagama, Sri Lanka
+          </p>
+
+          <p>
+            <strong>Phone:</strong><br />
+            (+94) 74 216 1371
+          </p>
+
+          <p>
+            <strong>Email:</strong><br />
+            ceylonlumidoragems@gmail.com
+          </p>
+
+          <p>
+            <strong>Business Hours:</strong><br />
+            Mon - Sat: 9:00 AM - 6:00 PM
+          </p>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="contact-card">
+          <h3>Send Us a Message</h3>
+
+          <form id="contactForm" class="contact-form">
+            <label>Your Name</label>
+            <input type="text" required />
+
+            <label>Your Email</label>
+            <input type="email" required />
+
+            <label>Message</label>
+            <textarea rows="5" required></textarea>
+
+            <button type="submit" class="btn gold-btn">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <!-- =================  Modals ================= -->
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+      <div class="modal-content">
+        <span class="close-modal" id="close-login">&times;</span>
+        <h3>Login to Your Account</h3>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <button type="submit" class="btn" style="width: 100%">Login</button>
+        </form>
+        <p style="text-align: center; margin-top: 15px">
+          Don't have an account?
+          <a href="login.html" style="color: var(--accent)">Sign up</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cart-modal">
+      <div class="modal-content">
+        <span class="close-modal" id="close-cart">&times;</span>
+        <h3>Your Cart</h3>
+        <div id="cart-items">
+          <!-- Cart items will be populated by JavaScript -->
+          <p class="empty-cart">Your cart is empty</p>
+        </div>
+        <div id="cart-total" style="display: none">
+          <hr />
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              font-weight: bold;
+              margin: 20px 0;
+            "
+          >
+            <span>Total:</span>
+            <span id="total-price">$0.00</span>
+          </div>
+          <button class="btn" style="width: 100%">Checkout</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div class="modal" id="wishlist-modal">
+      <div class="modal-content">
+        <span class="close-modal" id="close-wishlist">&times;</span>
+        <h3>Your Wishlist</h3>
+        <div id="wishlist-items">
+          <!-- Wishlist items will be populated by JavaScript -->
+          <p class="empty-wishlist">Your wishlist is empty</p>
+        </div>
+      </div>
+    </div>
+
+    <footer id="contact">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-about">
+            <div class="footer-brand">
+              <img
+                src="../assets/logo.png"
+                alt="Ceylon Lumidora Gems Logo"
+                class="footer-logo-img"
+              />
+
+              <div class="footer-logo-text">Ceylon Lumidora Gems</div>
+            </div>
+
+            <p>
+              Discover the brilliance within each carefully selected gem.
+              Experience the artistry and passion that defines our collection.
+            </p>
+          </div>
+          <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="index.html#shop">Shop</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-map">
+            <h4>Our Location</h4>
+            <div class="map-box">
+              <iframe
+                src="https://www.google.com/maps?q=Colombo,SriLanka&output=embed"
+                loading="lazy"
+              >
+              </iframe>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2025 Ceylon Lumidora Gems. All rights reserved. | Crafted with passion
+            for precious stones
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <a href="https://wa.me/94------" class="whatsapp-float" target="_blank">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <!-- ================= SCRIPT ================= -->
+    <script src="js/dom.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/events.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("contactForm");
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          alert("Message sent successfully! We will contact you soon.");
+
+          form.reset();
+        });
+      });
+    </script>
+  </body>
+</html>

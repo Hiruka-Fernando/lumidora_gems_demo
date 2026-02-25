@@ -1,0 +1,492 @@
+/* ----- YOUR EXACT COLOR PALETTE – untouched ----- */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+:root {
+--primary-color: #1a1a2e;
+--secondary-color: #8b4513;
+--accent-color: #d4af37;
+--light-color: #f5f5f5;
+--dark-color: #0d0d1a;
+--text-color: #333;
+--text-light: #777;
+--transition: all 0.3s ease;
+--shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+--radius: 8px;
+}
+
+body {
+font-family: "Lora", serif;
+line-height: 1.6;
+color: var(--text-color);
+background-color: #03030a; /* deep night base – like a dark clear sky */
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+position: relative;
+overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+font-family: "Cinzel", serif;
+font-weight: 600;
+color: var(--light-color);
+}
+
+a {
+text-decoration: none;
+color: inherit;
+}
+
+/* ----- NIGHT SKY LAYER – pure, random shining dots, no orbs, no diamond shapes, just stars ----- */
+.night-sky {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: 0;
+pointer-events: none;
+background: radial-gradient(circle at 40% 50%, #0a0a14, #010105 90%);
+}
+
+/* tiny shining dots – just like stars in a clear night sky */
+.star {
+position: absolute;
+background-color: #fffef7;
+border-radius: 50%;
+box-shadow: 0 0 6px 1px rgba(255, 255, 200, 0.8);
+width: 2px;
+height: 2px;
+opacity: 0;
+animation:
+shine 5s infinite ease-in-out,
+drift 12s linear infinite;
+}
+
+/* spark movement */
+@keyframes drift {
+from {
+transform: translate(0px, 0px);
+}
+to {
+transform: translate(var(--moveX), var(--moveY));
+}
+}
+/* random brighter stars – slightly bigger and softer */
+.star:nth-child(3n) {
+background-color: #fffde7;
+box-shadow: 0 0 10px 2px rgba(255, 235, 150, 0.9);
+width: 3px;
+height: 3px;
+}
+
+.star:nth-child(5n) {
+background-color: #fef9d7;
+box-shadow: 0 0 12px 3px rgba(212, 175, 55, 0.6);
+width: 2.5px;
+height: 2.5px;
+}
+
+.star:nth-child(7n) {
+background-color: #f5f3e6;
+box-shadow: 0 0 5px 1px rgba(255, 255, 240, 0.9);
+width: 2px;
+height: 2px;
+}
+
+@keyframes shine {
+0% {
+opacity: 0;
+transform: scale(0.8);
+}
+20% {
+opacity: 1;
+transform: scale(1.2);
+}
+40% {
+opacity: 0.6;
+transform: scale(0.9);
+}
+60% {
+opacity: 1;
+transform: scale(1.1);
+}
+80% {
+opacity: 0.5;
+transform: scale(0.9);
+}
+100% {
+opacity: 0;
+transform: scale(0.7);
+}
+}
+
+/* each star gets random position & unique twinkling via inline style */
+
+/* ----- HEADER / FOOTER – same elegant blur, exactly as before ----- */
+.account-header {
+padding: 20px 0;
+background-color: rgba(26, 26, 46, 0.8);
+backdrop-filter: blur(10px);
+position: relative;
+z-index: 15;
+border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.logo {
+font-family: "Cinzel", serif;
+font-size: 1.8rem;
+font-weight: 700;
+color: var(--light-color);
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.logo-img {
+height: 50px;
+width: auto;
+object-fit: contain;
+filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+transition: var(--transition);
+}
+
+.logo:hover .logo-img {
+transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+.logo-img {
+height: 34px;
+}
+
+.logo span {
+font-size: 1.3rem;
+}
+}
+.back-home {
+position: absolute;
+left: 20px;
+top: 50%;
+transform: translateY(-50%);
+color: var(--light-color);
+font-size: 1.2rem;
+transition: var(--transition);
+z-index: 20;
+}
+
+.back-home:hover {
+color: var(--accent-color);
+}
+
+/* ----- ACCOUNT BOX – same glass, same format, only background slightly deeper to let stars pop ----- */
+.account-container {
+display: flex;
+justify-content: center;
+align-items: center;
+flex: 1;
+padding: 40px 20px;
+position: relative;
+z-index: 20;
+}
+
+.account-box {
+background-color: rgba(20, 20, 35, 0.65);
+backdrop-filter: blur(16px);
+border-radius: var(--radius);
+width: 100%;
+max-width: 450px;
+padding: 40px;
+box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+border: 1px solid rgba(255, 255, 255, 0.1);
+transition: var(--transition);
+}
+
+.account-box:hover {
+box-shadow:
+0 20px 40px rgba(0, 0, 0, 0.7),
+0 0 0 1px rgba(212, 175, 55, 0.2);
+backdrop-filter: blur(18px);
+}
+
+.form-title {
+text-align: center;
+margin-bottom: 30px;
+position: relative;
+padding-bottom: 15px;
+}
+
+.form-title h2 {
+font-size: 2.2rem;
+margin-bottom: 5px;
+}
+
+.form-title p {
+color: #e0e0e0;
+font-size: 0.95rem;
+}
+
+.form-title::after {
+content: "";
+position: absolute;
+bottom: 0;
+left: 50%;
+transform: translateX(-50%);
+width: 60px;
+height: 3px;
+background-color: var(--accent-color);
+}
+
+.form-group {
+margin-bottom: 20px;
+}
+
+.form-group label {
+display: block;
+margin-bottom: 8px;
+color: var(--light-color);
+font-weight: 500;
+}
+
+.input-with-icon {
+position: relative;
+}
+
+.input-with-icon i {
+position: absolute;
+left: 15px;
+top: 50%;
+transform: translateY(-50%);
+color: var(--accent-color);
+}
+
+.form-control {
+width: 100%;
+padding: 15px 15px 15px 45px;
+background-color: rgba(0, 0, 0, 0.45);
+border: 1px solid rgba(212, 175, 55, 0.25);
+border-radius: var(--radius);
+color: white;
+font-family: "Lora", serif;
+font-size: 1rem;
+transition: var(--transition);
+}
+
+.form-control:focus {
+outline: none;
+border-color: var(--accent-color);
+background-color: rgba(20, 20, 35, 0.7);
+box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+.form-control::placeholder {
+color: rgba(230, 230, 230, 0.55);
+}
+
+.remember-forgot {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 25px;
+font-size: 0.9rem;
+}
+
+.remember-me {
+display: flex;
+align-items: center;
+}
+
+.remember-me input {
+margin-right: 8px;
+accent-color: var(--accent-color);
+}
+
+.remember-me label,
+.forgot-password {
+color: #f0f0f0;
+}
+
+.forgot-password:hover {
+color: var(--accent-color);
+text-decoration: underline;
+}
+
+.btn {
+display: inline-block;
+padding: 12px 28px;
+background-color: var(--accent-color);
+color: var(--primary-color);
+border: none;
+border-radius: var(--radius);
+font-family: "Cinzel", serif;
+font-weight: 600;
+font-size: 1rem;
+cursor: pointer;
+transition: var(--transition);
+text-align: center;
+}
+
+.btn:hover {
+background-color: var(--secondary-color);
+color: var(--light-color);
+transform: translateY(-3px);
+box-shadow: var(--shadow);
+}
+
+.submit-btn {
+width: 100%;
+margin-bottom: 25px;
+}
+
+.divider {
+display: flex;
+align-items: center;
+margin: 25px 0;
+color: rgba(255, 255, 255, 0.7);
+}
+
+.divider::before,
+.divider::after {
+content: "";
+flex: 1;
+height: 1px;
+background-color: rgba(212, 175, 55, 0.3);
+}
+
+.divider span {
+padding: 0 15px;
+font-size: 0.9rem;
+}
+
+.social-login {
+display: flex;
+flex-direction: column;
+gap: 15px;
+margin-bottom: 25px;
+}
+
+.social-btn {
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 14px;
+border-radius: var(--radius);
+background-color: rgba(15, 15, 30, 0.7);
+border: 1px solid rgba(212, 175, 55, 0.3);
+color: white;
+font-weight: 500;
+transition: var(--transition);
+cursor: pointer;
+}
+
+.social-btn i {
+margin-right: 10px;
+font-size: 1.2rem;
+}
+
+.social-btn:hover {
+background-color: rgba(212, 175, 55, 0.15);
+transform: translateY(-2px);
+border-color: rgba(212, 175, 55, 0.7);
+}
+
+.toggle-form {
+text-align: center;
+color: #e0e0e0;
+font-size: 0.95rem;
+}
+
+.toggle-form a {
+color: var(--accent-color);
+font-weight: 600;
+}
+
+.toggle-form a:hover {
+text-decoration: underline;
+}
+
+.account-footer {
+text-align: center;
+padding: 20px 0;
+background-color: rgba(26, 26, 46, 0.8);
+backdrop-filter: blur(10px);
+color: #bbb;
+font-size: 0.9rem;
+position: relative;
+z-index: 15;
+border-top: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+/* Success Message – untouched */
+.success-message {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%) scale(0);
+background-color: rgba(26, 26, 46, 0.98);
+backdrop-filter: blur(15px);
+padding: 40px;
+border-radius: var(--radius);
+text-align: center;
+max-width: 400px;
+width: 90%;
+box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+z-index: 1000;
+opacity: 0;
+transition: all 0.5s ease;
+border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.success-message.active {
+opacity: 1;
+transform: translate(-50%, -50%) scale(1);
+}
+
+.success-icon {
+font-size: 4rem;
+color: var(--accent-color);
+margin-bottom: 20px;
+}
+
+/* responsive unchanged */
+@media screen and (max-width: 768px) {
+.account-box {
+padding: 30px 25px;
+}
+.form-title h2 {
+font-size: 1.8rem;
+}
+.back-home {
+position: relative;
+left: 0;
+top: 0;
+transform: none;
+text-align: center;
+margin-bottom: 15px;
+display: inline-block;
+}
+.logo {
+justify-content: center;
+flex-direction: column;
+}
+}
+
+@media screen and (max-width: 576px) {
+.account-box {
+padding: 25px 20px;
+}
+.remember-forgot {
+flex-direction: column;
+align-items: flex-start;
+gap: 10px;
+}
+}
