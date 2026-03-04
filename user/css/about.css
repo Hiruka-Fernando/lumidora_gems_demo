@@ -106,7 +106,7 @@ header {
 }
 
 .logo-img {
-  height: 65px;
+  height: 75px;
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
@@ -185,6 +185,76 @@ header {
   color: var(--primary);
 }
 
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 78px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    padding: 20px;
+    gap: 15px;
+    transform: translateY(-120%);
+    opacity: 0;
+    transition: 0.3s ease;
+    z-index: 999;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu.active {
+    display: flex;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.mobile-menu a {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.mobile-menu a:last-child {
+    border-bottom: none;
+}
+
+.mobile-icons {
+    display: flex;
+    gap: 25px;
+    margin-top: 10px;
+    padding: 20px 0;
+    border-top: 1px solid #eee;
+    justify-content: space-around;
+}
+
+/* Mobile Login Button */
+.mobile-login-btn {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.mobile-login-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    gap: 8px;
+    margin: 15px 0;
+    padding: 12px 18px;
+    border: 1.5px solid var(--accent);
+    border-radius: 30px;
+    color: var(--primary);
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.mobile-login-link:hover {
+    background: var(--primary);
+    color: var(--accent);
+}
 /* ================= HERO BANNER ================= */
 .about-hero {
   height: 60vh;
@@ -214,6 +284,7 @@ header {
   margin: 0 auto;
   opacity: 0.9;
 }
+
 
 /* ================= ABOUT CONTENT ================= */
 .about-content {

@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ceylon Lumidora Gems</title>
+
+    <!-- Icons & Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+        /* =========================================================
+   GLOBAL RESET & ROOT VARIABLES
+========================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #1a1a2e;
+    --secondary: #8b4513;
+    --accent: #d4af37;
+    --light: #f5f5f5;
+    --dark: #0d0d1a;
+    --text: #333;
+    --text-light: #777;
+    --transition: all 0.3s ease;
+    --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --radius: 8px;
+}
+
+/* =========================================================
+   BASE STYLES
+========================================================= */
+body {
+    font-family: "Lora", serif;
+    background: var(--light);
+    color: var(--text);
+    overflow-x: hidden;
+    padding-top: 90px;
+}
+
+h1, h2, h3, h4 {
+    font-family: "Cinzel", serif;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+.btn {
+    padding: 12px 28px;
+    background: var(--accent);
+    border: none;
+    border-radius: var(--radius);
+    font-family: "Cinzel", serif;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn:hover {
+    background: var(--secondary);
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+}
+
+.btn-outline:hover {
+    background: var(--accent);
+    color: var(--primary);
+}
+
+/* =========================================================
+   HEADER & NAVBAR
+========================================================= */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--shadow);
+    z-index: 1000;
+    transition: var(--transition);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+}
+
+/* Logo */
+.logo {
+    font-family: "Cinzel", serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-img {
+    height: 85px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    transition: var(--transition);
+}
+
+.logo:hover .logo-img {
+    transform: scale(1.05);
+}
+
+/* Navigation Links */
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 28px;
+}
+
+.nav-links a {
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+/* Navigation Icons */
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.nav-icons a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+/* Cart & Wishlist Badge */
+.cart-count,
+.wishlist-count {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background: var(--accent);
+    color: #000;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+.hamburger {
+    display: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+    margin-left: 20px;
+    background: none;
+    border: none;
+    color: var(--primary);
+}
+
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 78px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    padding: 20px;
+    gap: 15px;
+    transform: translateY(-120%);
+    opacity: 0;
+    transition: 0.3s ease;
+    z-index: 999;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu.active {
+    display: flex;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.mobile-menu a {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.mobile-menu a:last-child {
+    border-bottom: none;
+}
+
+.mobile-icons {
+    display: flex;
+    gap: 25px;
+    margin-top: 10px;
+    padding: 20px 0;
+    border-top: 1px solid #eee;
+    justify-content: space-around;
+}
+
+/* Mobile Login Button */
+.mobile-login-btn {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.mobile-login-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    gap: 8px;
+    margin: 15px 0;
+    padding: 12px 18px;
+    border: 1.5px solid var(--accent);
+    border-radius: 30px;
+    color: var(--primary);
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.mobile-login-link:hover {
+    background: var(--primary);
+    color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .logo-img {
+    height: 34px;
+  }
+
+  .logo span {
+    font-size: 1.3rem;
+  }
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+footer {
+    background: linear-gradient(180deg, #0d0d1a, #151528);
+    color: var(--light);
+    padding: 70px 0 30px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-logo {
+    font-family: "Cinzel", serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 18px;
+}
+
+.footer-links h4,
+.footer-contact h4 {
+    font-family: "Cinzel", serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+.footer-links h4::after,
+.footer-contact h4::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 45px;
+    height: 2px;
+    background-color: var(--accent);
+}
+
+.footer-links ul { list-style: none; }
+.footer-links li { margin-bottom: 12px; }
+.footer-links a {
+    color: #cfcfcf;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+.footer-links a:hover { color: var(--accent); padding-left: 6px; }
+
+.footer-contact p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    color: #cfcfcf;
+    font-size: 0.95rem;
+}
+
+.footer-contact i { margin-right: 10px; color: var(--accent); font-size: 1rem; }
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN
+========================================================= */
+@media (max-width: 992px) {
+    .hero h1 { font-size: 2.8rem; }
+}
+
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-icons a:not(.btn-outline) { display: none; }
+    .hamburger { display: block; }
+    .logo-img { height: 50px; }
+    .hero h1 { font-size: 2.2rem; }
+    
+    /* Footer heading underline center */
+    .footer-links h4::after,
+    .footer-contact h4::after { left: 50%; transform: translateX(-50%); }
+    
+    /* Mobile badges */
+    .nav-icons a,
+    .mobile-icons a { position: relative; }
+    .mobile-icons .cart-count { top: -4px; right: -6px; }
+}
+
+@media (max-width: 576px) {
+    .hero h1 { font-size: 1.8rem; }
+    .hero p { font-size: 1rem; }
+    .section-title h2 { font-size: 2rem; }
+}
+    </style>
+  </head>
+
+  <body>
+    <!-- ================= HEADER ================= -->
+    <header>
+      <div class="container">
+        <nav class="navbar">
+          <a href="#" class="logo">
+              <img src="assets/logo.png" alt="Ceylon Lumidora Gems Logo" class="logo-img">
+              <span>Ceylon Lumidora Gems</span>
+          </a>
+
+          <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="user/shop.html">Shop</a></li>
+            <li><a href="user/about.html">About</a></li>
+            <li><a href="user/contact.html">Contact</a></li>
+          </ul>
+
+          <div class="nav-icons">
+            <a href="#" id="wishlist-btn">
+              <i class="far fa-heart"></i>
+              <span class="wishlist-count">2</span>
+            </a>
+
+            <a href="#" id="cart-btn">
+              <i class="fas fa-shopping-bag"></i>
+              <span class="cart-count">3</span>
+            </a>
+
+            <button class="hamburger" id="hamburger">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+          <a href="#home">Home</a>
+          <a href="user/shop.html">Shop</a>
+          <a href="user/about.html">About</a>
+          <a href="user/contact.html">Contact</a>
+
+          <a href="user/login.html" id="mobile-login" class="mobile-login-link">
+            <i class="fas fa-user"></i> Login
+          </a>
+
+          <div class="mobile-icons">
+            <a href="#" id="mobile-wishlist">
+              <i class="far fa-heart"></i>
+              <span class="wishlist-count">2</span>
+            </a>
+
+            <a href="#" id="mobile-cart">
+              <i class="fas fa-shopping-bag"></i>
+              <span class="cart-count">3</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+
+    <!-- Footer -->
+    <footer id="contact">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-about">
+            <div class="footer-logo">Ceylon Lumidora Gems</div>
+            <p>
+              Discover the brilliance within each carefully selected gem.
+              Experience the artistry and passion that defines our collection.
+            </p>
+          </div>
+          <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="user/">Shop</a></li>
+              <li><a href="user/">About Us</a></li>
+              <li><a href="user/">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-contact">
+            <h4>Contact Us</h4>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> 415/11/C, Leyland Road, Panagoda, Homagama.
+            </p>
+            <p><i class="fas fa-phone"></i> (+94) 74-216-1371</p>
+            <p><i class="fas fa-envelope"></i> ceylonlumidoragems@gmail.com</p>
+            <p><i class="fas fa-clock"></i> Mon-Sat: 10AM - 7PM</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2025 Ceylon Lumidora Gems. All rights reserved. | Crafted with passion
+            for precious stones
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JS Files (Order matters) -->
+    <script src="user/js/dom.js"></script>
+    <!-- DOM elements -->
+    <script src="user/js/data.js"></script>
+    <!-- gems array -->
+    <script src="user/js/state.js"></script>
+    <!-- cart + wishlist -->
+    <script src="user/js/ui.js"></script>
+    <!-- renderGemCards, counts, notification -->
+    <script src="user/js/cart.js"></script>
+    <!-- addToCart, renderCartItems -->
+    <script src="user/js/wishlist.js"></script>
+    <!-- toggleWishlist, renderWishlistItems -->
+    <script src="user/js/events.js"></script>
+    <!-- setupEventListeners -->
+    <script src="user/js/main.js"></script>
+    <!-- DOMContentLoaded -->
+  </body>
+</html>
