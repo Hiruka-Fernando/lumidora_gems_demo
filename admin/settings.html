@@ -1,329 +1,460 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<title>Settings | Lumidora Admin</title>
-<!-- Fonts & Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Settings | Lumidora Admin</title>
+    <!-- Fonts & Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Bootstrap -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-<link rel="stylesheet" href="../user/css/styles.css" />
+    <link rel="stylesheet" href="../user/css/styles.css" />
 
-<style>
-  body { padding-top: 0; }
+    <style>
+      body {
+        padding-top: 0;
+      }
 
-  .admin-wrapper { display: flex; min-height: 100vh; }
+      .admin-wrapper {
+        display: flex;
+        min-height: 100vh;
+      }
 
-  .sidebar {
-    width: 260px;
-    background: var(--primary);
-    color: white;
-    padding: 30px 20px;
-    position: fixed;
-    height: 100vh;
-  }
+      .sidebar {
+        width: 260px;
+        background: var(--primary);
+        color: white;
+        padding: 30px 20px;
+        position: fixed;
+        height: 100vh;
+      }
 
-  .sidebar h3 {
-    color: var(--accent);
-    margin-bottom: 40px;
-    text-align: center;
-  }
+      .sidebar h3 {
+        color: var(--accent);
+        margin-bottom: 40px;
+        text-align: center;
+      }
 
-  .sidebar a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 15px;
-    border-radius: var(--radius);
-    margin-bottom: 12px;
-    transition: var(--transition);
-  }
+      .sidebar a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 15px;
+        border-radius: var(--radius);
+        margin-bottom: 12px;
+        transition: var(--transition);
+      }
 
-  .sidebar a:hover,
-  .sidebar a.active {
-    background: var(--accent);
-    color: var(--primary);
-  }
+      .sidebar a:hover,
+      .sidebar a.active {
+        background: var(--accent);
+        color: var(--primary);
+      }
 
-  .main-content {
-    margin-left: 260px;
-    padding: 40px;
-    flex: 1;
-  }
+      .main-content {
+        margin-left: 260px;
+        padding: 40px;
+        flex: 1;
+      }
 
-  .card {
-    background: white;
-    padding: 30px;
-    border-radius: var(--radius);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    max-width: 700px;
-    margin-bottom: 40px;
-  }
+      .card {
+        background: white;
+        padding: 30px;
+        border-radius: var(--radius);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        max-width: 700px;
+        margin-bottom: 40px;
+      }
 
-  .card h3 {
-    margin-bottom: 20px;
-  }
+      .card h3 {
+        margin-bottom: 20px;
+      }
 
-  .form-group {
-    margin-bottom: 18px;
-    display: flex;
-    flex-direction: column;
-  }
+      .form-group {
+        margin-bottom: 18px;
+        display: flex;
+        flex-direction: column;
+      }
 
-  .form-group label {
-    margin-bottom: 6px;
-    font-weight: 500;
-  }
+      .form-group label {
+        margin-bottom: 6px;
+        font-weight: 500;
+      }
 
-  .form-group input {
-    padding: 10px;
-    border-radius: var(--radius);
-    border: 1px solid #ddd;
-    transition: var(--transition);
-  }
+      .form-group input {
+        padding: 10px;
+        border-radius: var(--radius);
+        border: 1px solid #ddd;
+        transition: var(--transition);
+      }
 
-  .form-group input:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 2px rgba(212,175,55,0.15);
-  }
+      .form-group input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.15);
+      }
 
-  .toggle {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+      .toggle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
 
-  .btn {
-    background: var(--accent);
-    color: var(--primary);
-    border: none;
-    padding: 10px 16px;
-    border-radius: var(--radius);
-    cursor: pointer;
-    transition: var(--transition);
-  }
+      .btn {
+        background: var(--accent);
+        color: var(--primary);
+        border: none;
+        padding: 10px 16px;
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: var(--transition);
+      }
 
-  .btn:hover {
-    opacity: 0.9;
-  }
+      .btn:hover {
+        opacity: 0.9;
+      }
 
-  .message {
-    margin-top: 12px;
-    font-weight: 500;
-    display: none;
-  }
+      .message {
+        margin-top: 12px;
+        font-weight: 500;
+        display: none;
+      }
 
-  hr {
-    margin: 30px 0;
-    border: none;
-    border-top: 1px solid #eee;
-  }
-</style>
-</head>
+      hr {
+        margin: 30px 0;
+        border: none;
+        border-top: 1px solid #eee;
+      }
+      /* ===== MOBILE TOPBAR ===== */
 
-<body>
+      .mobile-topbar {
+        display: none;
+        background: var(--primary);
+        color: white;
+        padding: 12px 20px;
+        align-items: center;
+        gap: 15px;
+      }
 
-<div class="admin-wrapper">
+      .mobile-topbar button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 22px;
+      }
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <h3>Lumidora Admin</h3>
-    <a href="dashboard.html">
-      <i class="fas fa-chart-line"></i> Dashboard
-    </a>
+      .mobile-title {
+        font-family: "Cinzel", serif;
+      }
 
-    <a href="products.html"> <i class="fas fa-gem"></i> Products </a>
+      /* ===== SIDEBAR ANIMATION ===== */
 
-    <a href="orders.html"> <i class="fas fa-shopping-cart"></i> Orders </a>
+      .sidebar {
+        transition: left 0.35s ease;
+      }
 
-    <a href="customers.html"> <i class="fas fa-users"></i> Customers </a>
+      /* ===== DARK OVERLAY ===== */
 
-    <a href="shipping.html"> <i class="fas fa-truck"></i> Shipping </a>
+      .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.45);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 998;
+      }
 
-    <a href="analytics.html">
-      <i class="fas fa-chart-pie"></i> Analytics
-    </a>
+      .sidebar-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
 
-    <a href="settings.html" class="active"> <i class="fas fa-cog"></i> Settings </a>
+      /* ===== RESPONSIVE ===== */
 
-    <hr style="border-color: rgba(255, 255, 255, 0.2)" />
+      @media (max-width: 768px) {
+        .mobile-topbar {
+          display: flex;
+        }
 
-    <a href="../index.html">
-      <i class="fas fa-sign-out-alt"></i> Logout
-  </div>
+        .sidebar {
+          position: fixed;
+          left: -260px;
+          top: 0;
+          width: 260px;
+          height: 100%;
+          z-index: 999;
+        }
 
-  <!-- Main Content -->
-  <div class="main-content">
+        .sidebar.active {
+          left: 0;
+        }
 
-    <h2>Store Settings</h2>
-    <br>
+        .main-content {
+          margin-left: 0;
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
 
-    <!-- Store Configuration Card -->
-    <div class="card">
-      <h3>General Settings</h3>
+  <body>
+    <div class="sidebar-overlay"></div>
 
-      <div class="form-group">
-        <label>Store Name</label>
-        <input type="text" id="store-name">
+    <!-- ===== MOBILE TOPBAR ===== -->
+    <div class="mobile-topbar d-md-none">
+      <button id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <span class="mobile-title">Lumidora Admin</span>
+    </div>
+    <div class="admin-wrapper">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <h3>Lumidora Admin</h3>
+        <a href="dashboard.html">
+          <i class="fas fa-chart-line"></i> Dashboard
+        </a>
+
+        <a href="products.html"> <i class="fas fa-gem"></i> Products </a>
+
+        <a href="orders.html"> <i class="fas fa-shopping-cart"></i> Orders </a>
+
+        <a href="customers.html"> <i class="fas fa-users"></i> Customers </a>
+
+        <a href="shipping.html"> <i class="fas fa-truck"></i> Shipping </a>
+
+        <a href="analytics.html">
+          <i class="fas fa-chart-pie"></i> Analytics
+        </a>
+
+        <a href="settings.html" class="active">
+          <i class="fas fa-cog"></i> Settings
+        </a>
+
+        <hr style="border-color: rgba(255, 255, 255, 0.2)" />
+
+        <a href="../index.html"> <i class="fas fa-sign-out-alt"></i> Logout </a>
       </div>
 
-      <div class="form-group">
-        <label>Currency Symbol</label>
-        <input type="text" id="currency-symbol">
+      <!-- Main Content -->
+      <div class="main-content">
+        <h2>Store Settings</h2>
+        <br />
+
+        <!-- Store Configuration Card -->
+        <div class="card">
+          <h3>General Settings</h3>
+
+          <div class="form-group">
+            <label>Store Name</label>
+            <input type="text" id="store-name" />
+          </div>
+
+          <div class="form-group">
+            <label>Currency Symbol</label>
+            <input type="text" id="currency-symbol" />
+          </div>
+
+          <div class="form-group">
+            <label>Shipping Fee (Flat)</label>
+            <input type="number" id="shipping-fee" />
+          </div>
+
+          <div class="form-group">
+            <label>Tax Rate (%)</label>
+            <input type="number" id="tax-rate" />
+          </div>
+
+          <div class="form-group toggle">
+            <label>Maintenance Mode</label>
+            <input type="checkbox" id="maintenance-mode" />
+          </div>
+
+          <button class="btn" onclick="saveSettings()">Save Settings</button>
+
+          <div class="message" id="settings-msg"></div>
+        </div>
+
+        <!-- Password Card -->
+        <div class="card">
+          <h3>Change Admin Password</h3>
+
+          <div class="form-group">
+            <label>Current Password</label>
+            <input type="password" id="current-password" />
+          </div>
+
+          <div class="form-group">
+            <label>New Password</label>
+            <input type="password" id="new-password" />
+          </div>
+
+          <div class="form-group">
+            <label>Confirm New Password</label>
+            <input type="password" id="confirm-password" />
+          </div>
+
+          <button class="btn" onclick="changePassword()">
+            Update Password
+          </button>
+
+          <div class="message" id="password-msg"></div>
+        </div>
       </div>
-
-      <div class="form-group">
-        <label>Shipping Fee (Flat)</label>
-        <input type="number" id="shipping-fee">
-      </div>
-
-      <div class="form-group">
-        <label>Tax Rate (%)</label>
-        <input type="number" id="tax-rate">
-      </div>
-
-      <div class="form-group toggle">
-        <label>Maintenance Mode</label>
-        <input type="checkbox" id="maintenance-mode">
-      </div>
-
-      <button class="btn" onclick="saveSettings()">Save Settings</button>
-
-      <div class="message" id="settings-msg"></div>
     </div>
 
-    <!-- Password Card -->
-    <div class="card">
-      <h3>Change Admin Password</h3>
+    <script>
+      /* ===== Initialize Default Admin ===== */
 
-      <div class="form-group">
-        <label>Current Password</label>
-        <input type="password" id="current-password">
-      </div>
+      if (!localStorage.getItem("adminAuth")) {
+        localStorage.setItem(
+          "adminAuth",
+          JSON.stringify({
+            username: "admin",
+            password: "admin123",
+          }),
+        );
+      }
 
-      <div class="form-group">
-        <label>New Password</label>
-        <input type="password" id="new-password">
-      </div>
+      /* ===== Load Settings ===== */
 
-      <div class="form-group">
-        <label>Confirm New Password</label>
-        <input type="password" id="confirm-password">
-      </div>
+      function loadSettings() {
+        const settings = JSON.parse(localStorage.getItem("storeSettings")) || {
+          storeName: "Lumidora Gems",
+          currency: "$",
+          shippingFee: 20,
+          taxRate: 5,
+          maintenanceMode: false,
+        };
 
-      <button class="btn" onclick="changePassword()">Update Password</button>
+        document.getElementById("store-name").value = settings.storeName;
+        document.getElementById("currency-symbol").value = settings.currency;
+        document.getElementById("shipping-fee").value = settings.shippingFee;
+        document.getElementById("tax-rate").value = settings.taxRate;
+        document.getElementById("maintenance-mode").checked =
+          settings.maintenanceMode;
+      }
 
-      <div class="message" id="password-msg"></div>
-    </div>
+      /* ===== Save Settings ===== */
 
-  </div>
+      function saveSettings() {
+        const settings = {
+          storeName: document.getElementById("store-name").value,
+          currency: document.getElementById("currency-symbol").value,
+          shippingFee:
+            parseFloat(document.getElementById("shipping-fee").value) || 0,
+          taxRate: parseFloat(document.getElementById("tax-rate").value) || 0,
+          maintenanceMode: document.getElementById("maintenance-mode").checked,
+        };
 
-</div>
+        localStorage.setItem("storeSettings", JSON.stringify(settings));
 
-<script>
+        const msg = document.getElementById("settings-msg");
+        msg.style.display = "block";
+        msg.style.color = "green";
+        msg.textContent = "Settings saved successfully!";
 
-/* ===== Initialize Default Admin ===== */
+        setTimeout(() => (msg.style.display = "none"), 2000);
+      }
 
-if (!localStorage.getItem("adminAuth")) {
-  localStorage.setItem("adminAuth", JSON.stringify({
-    username: "admin",
-    password: "admin123"
-  }));
-}
+      /* ===== Change Password ===== */
 
-/* ===== Load Settings ===== */
+      function changePassword() {
+        const current = document.getElementById("current-password").value;
+        const newPass = document.getElementById("new-password").value;
+        const confirm = document.getElementById("confirm-password").value;
+        const msg = document.getElementById("password-msg");
 
-function loadSettings() {
-  const settings = JSON.parse(localStorage.getItem("storeSettings")) || {
-    storeName: "Lumidora Gems",
-    currency: "$",
-    shippingFee: 20,
-    taxRate: 5,
-    maintenanceMode: false
-  };
+        const admin = JSON.parse(localStorage.getItem("adminAuth"));
 
-  document.getElementById("store-name").value = settings.storeName;
-  document.getElementById("currency-symbol").value = settings.currency;
-  document.getElementById("shipping-fee").value = settings.shippingFee;
-  document.getElementById("tax-rate").value = settings.taxRate;
-  document.getElementById("maintenance-mode").checked = settings.maintenanceMode;
-}
+        msg.style.display = "block";
 
-/* ===== Save Settings ===== */
+        if (current !== admin.password) {
+          msg.style.color = "red";
+          msg.textContent = "Current password is incorrect.";
+          return;
+        }
 
-function saveSettings() {
+        if (newPass.length < 6) {
+          msg.style.color = "red";
+          msg.textContent = "Password must be at least 6 characters.";
+          return;
+        }
 
-  const settings = {
-    storeName: document.getElementById("store-name").value,
-    currency: document.getElementById("currency-symbol").value,
-    shippingFee: parseFloat(document.getElementById("shipping-fee").value) || 0,
-    taxRate: parseFloat(document.getElementById("tax-rate").value) || 0,
-    maintenanceMode: document.getElementById("maintenance-mode").checked
-  };
+        if (newPass !== confirm) {
+          msg.style.color = "red";
+          msg.textContent = "New passwords do not match.";
+          return;
+        }
 
-  localStorage.setItem("storeSettings", JSON.stringify(settings));
+        admin.password = newPass;
+        localStorage.setItem("adminAuth", JSON.stringify(admin));
 
-  const msg = document.getElementById("settings-msg");
-  msg.style.display = "block";
-  msg.style.color = "green";
-  msg.textContent = "Settings saved successfully!";
+        msg.style.color = "green";
+        msg.textContent = "Password updated successfully!";
 
-  setTimeout(() => msg.style.display = "none", 2000);
-}
+        document.getElementById("current-password").value = "";
+        document.getElementById("new-password").value = "";
+        document.getElementById("confirm-password").value = "";
+      }
 
-/* ===== Change Password ===== */
+      loadSettings();
+    </script>
+    <script>
+      /* ===== SIDEBAR TOGGLE ===== */
 
-function changePassword() {
+      const toggleBtn = document.getElementById("menu-toggle");
+      const sidebar = document.querySelector(".sidebar");
+      const overlay = document.querySelector(".sidebar-overlay");
+      const sidebarLinks = document.querySelectorAll(".sidebar a");
 
-  const current = document.getElementById("current-password").value;
-  const newPass = document.getElementById("new-password").value;
-  const confirm = document.getElementById("confirm-password").value;
-  const msg = document.getElementById("password-msg");
+      function openSidebar() {
+        sidebar.classList.add("active");
+        overlay.classList.add("active");
+      }
 
-  const admin = JSON.parse(localStorage.getItem("adminAuth"));
+      function closeSidebar() {
+        sidebar.classList.remove("active");
+        overlay.classList.remove("active");
+      }
 
-  msg.style.display = "block";
+      toggleBtn.addEventListener("click", () => {
+        if (sidebar.classList.contains("active")) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
 
-  if (current !== admin.password) {
-    msg.style.color = "red";
-    msg.textContent = "Current password is incorrect.";
-    return;
-  }
+      /* close when overlay clicked */
 
-  if (newPass.length < 6) {
-    msg.style.color = "red";
-    msg.textContent = "Password must be at least 6 characters.";
-    return;
-  }
+      overlay.addEventListener("click", closeSidebar);
 
-  if (newPass !== confirm) {
-    msg.style.color = "red";
-    msg.textContent = "New passwords do not match.";
-    return;
-  }
+      /* auto close when menu clicked */
 
-  admin.password = newPass;
-  localStorage.setItem("adminAuth", JSON.stringify(admin));
-
-  msg.style.color = "green";
-  msg.textContent = "Password updated successfully!";
-
-  document.getElementById("current-password").value = "";
-  document.getElementById("new-password").value = "";
-  document.getElementById("confirm-password").value = "";
-}
-
-loadSettings();
-
-</script>
-
-</body>
+      sidebarLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth <= 768) {
+            closeSidebar();
+          }
+        });
+      });
+    </script>
+  </body>
 </html>

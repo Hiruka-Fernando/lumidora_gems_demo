@@ -1,175 +1,262 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Shipping | Lumidora Admin</title>
-  <!-- Fonts & Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Shipping | Lumidora Admin</title>
+    <!-- Fonts & Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Bootstrap -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    
-  <link rel="stylesheet" href="../user/css/styles.css" />
 
-  <style>
-    body { padding-top: 0; }
+    <link rel="stylesheet" href="../user/css/styles.css" />
 
-    .admin-wrapper { display: flex; min-height: 100vh; }
+    <style>
+      body {
+        padding-top: 0;
+      }
 
-    .sidebar {
-      width: 260px;
-      background: var(--primary);
-      color: white;
-      padding: 30px 20px;
-      position: fixed;
-      height: 100vh;
-    }
+      .admin-wrapper {
+        display: flex;
+        min-height: 100vh;
+      }
 
-    .sidebar h3 {
-      color: var(--accent);
-      margin-bottom: 40px;
-      text-align: center;
-    }
+      .sidebar {
+        width: 260px;
+        background: var(--primary);
+        color: white;
+        padding: 30px 20px;
+        position: fixed;
+        height: 100vh;
+      }
 
-    .sidebar a {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 15px;
-      border-radius: var(--radius);
-      margin-bottom: 12px;
-      transition: var(--transition);
-    }
+      .sidebar h3 {
+        color: var(--accent);
+        margin-bottom: 40px;
+        text-align: center;
+      }
 
-    .sidebar a:hover,
-    .sidebar a.active {
-      background: var(--accent);
-      color: var(--primary);
-    }
+      .sidebar a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 15px;
+        border-radius: var(--radius);
+        margin-bottom: 12px;
+        transition: var(--transition);
+      }
 
-    .main-content {
-      margin-left: 260px;
-      padding: 40px;
-      flex: 1;
-    }
+      .sidebar a:hover,
+      .sidebar a.active {
+        background: var(--accent);
+        color: var(--primary);
+      }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: white;
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    }
+      .main-content {
+        margin-left: 260px;
+        padding: 40px;
+        flex: 1;
+      }
 
-    th, td {
-      padding: 14px;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-    }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      }
 
-    th {
-      background: #f8f8f8;
-      font-weight: 600;
-    }
+      th,
+      td {
+        padding: 14px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+      }
 
-    .tracking-input {
-      padding: 6px;
-      border-radius: var(--radius);
-      border: 1px solid #ccc;
-      width: 140px;
-    }
+      th {
+        background: #f8f8f8;
+        font-weight: 600;
+      }
 
-    .action-btn {
-      background: var(--accent);
-      color: var(--primary);
-      border: none;
-      padding: 6px 10px;
-      border-radius: var(--radius);
-      cursor: pointer;
-      transition: var(--transition);
-    }
+      .tracking-input {
+        padding: 6px;
+        border-radius: var(--radius);
+        border: 1px solid #ccc;
+        width: 140px;
+      }
 
-    .action-btn:hover {
-      opacity: 0.9;
-    }
-  </style>
-</head>
+      .action-btn {
+        background: var(--accent);
+        color: var(--primary);
+        border: none;
+        padding: 6px 10px;
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: var(--transition);
+      }
 
-<body>
+      .action-btn:hover {
+        opacity: 0.9;
+      }
+      /* ===== MOBILE TOPBAR ===== */
 
-<div class="admin-wrapper">
+      .mobile-topbar {
+        display: none;
+        background: var(--primary);
+        color: white;
+        padding: 12px 20px;
+        align-items: center;
+        gap: 15px;
+      }
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <h3>Lumidora Admin</h3>
-    <a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a>
-    <a href="products.html"><i class="fas fa-gem"></i> Products</a>
-    <a href="orders.html"><i class="fas fa-shopping-cart"></i> Orders</a>
-    <a href="customers.html"><i class="fas fa-users"></i> Customers</a>
-    <a href="shipping.html" class="active"><i class="fas fa-truck"></i> Shipping </a>
-    <a href="analytics.html"><i class="fas fa-chart-pie"></i> Analytics</a>
-    <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+      .mobile-topbar button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 22px;
+      }
 
-    <hr style="border-color: rgba(255, 255, 255, 0.2)" />
+      .mobile-title {
+        font-family: "Cinzel", serif;
+      }
 
-    <a href="../index.html">
-    <i class="fas fa-sign-out-alt"></i> Logout
-    </a>
-  </div>
+      /* ===== SIDEBAR ANIMATION ===== */
 
-  <!-- Main Content -->
-  <div class="main-content">
-    <h2>Shipping Management</h2>
-    <br>
+      .sidebar {
+        transition: left 0.35s ease;
+      }
 
-    <table>
-      <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Customer</th>
-          <th>Total</th>
-          <th>Status</th>
-          <th>Tracking #</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="shipping-table">
-      </tbody>
-    </table>
-  </div>
+      /* ===== DARK OVERLAY ===== */
 
-</div>
+      .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.45);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 998;
+      }
 
-<script>
+      .sidebar-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
 
-let orders = JSON.parse(localStorage.getItem("orders")) || [];
+      /* ===== RESPONSIVE ===== */
 
-function renderShipping() {
+      @media (max-width: 768px) {
+        .mobile-topbar {
+          display: flex;
+        }
 
-  const table = document.getElementById("shipping-table");
-  table.innerHTML = "";
+        .sidebar {
+          position: fixed;
+          left: -260px;
+          top: 0;
+          width: 260px;
+          height: 100%;
+          z-index: 999;
+        }
 
-  if (orders.length === 0) {
-    table.innerHTML = `
+        .sidebar.active {
+          left: 0;
+        }
+
+        .main-content {
+          margin-left: 0;
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="sidebar-overlay"></div>
+
+    <!-- ===== MOBILE TOPBAR ===== -->
+    <div class="mobile-topbar d-md-none">
+      <button id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <span class="mobile-title">Lumidora Admin</span>
+    </div>
+    <div class="admin-wrapper">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <h3>Lumidora Admin</h3>
+        <a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+        <a href="products.html"><i class="fas fa-gem"></i> Products</a>
+        <a href="orders.html"><i class="fas fa-shopping-cart"></i> Orders</a>
+        <a href="customers.html"><i class="fas fa-users"></i> Customers</a>
+        <a href="shipping.html" class="active"
+          ><i class="fas fa-truck"></i> Shipping
+        </a>
+        <a href="analytics.html"><i class="fas fa-chart-pie"></i> Analytics</a>
+        <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+
+        <hr style="border-color: rgba(255, 255, 255, 0.2)" />
+
+        <a href="../index.html"> <i class="fas fa-sign-out-alt"></i> Logout </a>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <h2>Shipping Management</h2>
+        <br />
+
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Tracking #</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="shipping-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+      function renderShipping() {
+        const table = document.getElementById("shipping-table");
+        table.innerHTML = "";
+
+        if (orders.length === 0) {
+          table.innerHTML = `
       <tr>
         <td colspan="6" style="text-align:center;">No orders available.</td>
       </tr>
     `;
-    return;
-  }
+          return;
+        }
 
-  orders.forEach(order => {
+        orders.forEach((order) => {
+          const row = document.createElement("tr");
 
-    const row = document.createElement("tr");
-
-    row.innerHTML = `
+          row.innerHTML = `
       <td>#${order.id}</td>
       <td>${order.customer || "Guest"}</td>
       <td>$${order.total.toFixed(2)}</td>
@@ -193,40 +280,77 @@ function renderShipping() {
       </td>
     `;
 
-    table.appendChild(row);
-  });
-}
+          table.appendChild(row);
+        });
+      }
 
-function updateTracking(id, trackingNumber) {
+      function updateTracking(id, trackingNumber) {
+        const order = orders.find((o) => o.id === id);
+        if (!order) return;
 
-  const order = orders.find(o => o.id === id);
-  if (!order) return;
+        order.trackingNumber = trackingNumber;
+        localStorage.setItem("orders", JSON.stringify(orders));
+      }
 
-  order.trackingNumber = trackingNumber;
-  localStorage.setItem("orders", JSON.stringify(orders));
-}
+      function markShipped(id) {
+        const order = orders.find((o) => o.id === id);
+        if (!order) return;
 
-function markShipped(id) {
-  const order = orders.find(o => o.id === id);
-  if (!order) return;
+        order.status = "Shipped";
+        localStorage.setItem("orders", JSON.stringify(orders));
+        renderShipping();
+      }
 
-  order.status = "Shipped";
-  localStorage.setItem("orders", JSON.stringify(orders));
-  renderShipping();
-}
+      function markDelivered(id) {
+        const order = orders.find((o) => o.id === id);
+        if (!order) return;
 
-function markDelivered(id) {
-  const order = orders.find(o => o.id === id);
-  if (!order) return;
+        order.status = "Delivered";
+        localStorage.setItem("orders", JSON.stringify(orders));
+        renderShipping();
+      }
 
-  order.status = "Delivered";
-  localStorage.setItem("orders", JSON.stringify(orders));
-  renderShipping();
-}
+      renderShipping();
+    </script>
+    <script>
+      /* ===== SIDEBAR TOGGLE ===== */
 
-renderShipping();
+      const toggleBtn = document.getElementById("menu-toggle");
+      const sidebar = document.querySelector(".sidebar");
+      const overlay = document.querySelector(".sidebar-overlay");
+      const sidebarLinks = document.querySelectorAll(".sidebar a");
 
-</script>
+      function openSidebar() {
+        sidebar.classList.add("active");
+        overlay.classList.add("active");
+      }
 
-</body>
+      function closeSidebar() {
+        sidebar.classList.remove("active");
+        overlay.classList.remove("active");
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        if (sidebar.classList.contains("active")) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+
+      /* close when overlay clicked */
+
+      overlay.addEventListener("click", closeSidebar);
+
+      /* auto close when menu clicked */
+
+      sidebarLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth <= 768) {
+            closeSidebar();
+          }
+        });
+      });
+    </script>
+  </body>
 </html>

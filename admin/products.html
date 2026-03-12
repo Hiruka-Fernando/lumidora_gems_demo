@@ -180,18 +180,134 @@
         opacity: 0.9;
         transform: translateY(-2px);
       }
+      /* ===== MOBILE MODAL FIX ===== */
 
+      @media (max-width: 768px) {
+        .modal {
+          align-items: flex-start;
+          padding: 20px 10px;
+          overflow-y: auto;
+        }
+
+        .modal-content {
+          width: 100%;
+          max-width: 420px;
+          padding: 20px;
+          border-radius: 14px;
+          margin-top: 40px;
+        }
+
+        /* stack form columns */
+
+        .modal-content .row {
+          flex-direction: column;
+        }
+
+        .modal-content .col-md-6 {
+          width: 100%;
+        }
+
+        /* preview image smaller */
+
+        .product-img-preview {
+          height: 160px;
+        }
+      }
+      /* ===== MOBILE TOPBAR ===== */
+
+      .mobile-topbar {
+        display: none;
+        background: var(--primary);
+        color: white;
+        padding: 12px 20px;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .mobile-topbar button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 22px;
+      }
+
+      .mobile-title {
+        font-family: "Cinzel", serif;
+      }
+
+      /* ===== SIDEBAR ANIMATION ===== */
+
+      .sidebar {
+        transition: left 0.35s ease;
+      }
+
+      /* ===== DARK OVERLAY ===== */
+
+      .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.45);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 998;
+      }
+
+      .sidebar-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* ===== RESPONSIVE ===== */
+
+      @media (max-width: 768px) {
+        .mobile-topbar {
+          display: flex;
+        }
+
+        .sidebar {
+          position: fixed;
+          left: -260px;
+          top: 0;
+          width: 260px;
+          height: 100%;
+          z-index: 999;
+        }
+
+        .sidebar.active {
+          left: 0;
+        }
+
+        .main-content {
+          margin-left: 0;
+          padding: 20px;
+        }
+      }
     </style>
   </head>
 
   <body>
+    <div class="sidebar-overlay"></div>
+
+    <div class="mobile-topbar d-md-none">
+      <button id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <span class="mobile-title">Lumidora Admin</span>
+    </div>
+
     <div class="admin-wrapper">
       <!-- Sidebar -->
       <div class="sidebar">
         <h3>Lumidora Admin</h3>
 
         <a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a>
-        <a href="products.html" class="active"><i class="fas fa-gem"></i> Products</a>
+        <a href="products.html" class="active"
+          ><i class="fas fa-gem"></i> Products</a
+        >
         <a href="orders.html"><i class="fas fa-shopping-cart"></i> Orders</a>
         <a href="customers.html"><i class="fas fa-users"></i> Customers</a>
         <a href="shipping.html"><i class="fas fa-truck"></i> Shipping </a>
@@ -199,9 +315,7 @@
         <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
 
         <hr style="border-color: rgba(255, 255, 255, 0.2)" />
-        <a href="../index.html"
-          ><i class="fas fa-sign-out-alt"></i> Logout</a
-        >
+        <a href="../index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </div>
 
       <!-- Main Content -->
@@ -478,6 +592,46 @@
       /* ================= INIT ================= */
 
       renderProducts();
+    </script>
+    <script>
+      /* ===== SIDEBAR TOGGLE ===== */
+
+      const toggleBtn = document.getElementById("menu-toggle");
+      const sidebar = document.querySelector(".sidebar");
+      const overlay = document.querySelector(".sidebar-overlay");
+      const sidebarLinks = document.querySelectorAll(".sidebar a");
+
+      function openSidebar() {
+        sidebar.classList.add("active");
+        overlay.classList.add("active");
+      }
+
+      function closeSidebar() {
+        sidebar.classList.remove("active");
+        overlay.classList.remove("active");
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        if (sidebar.classList.contains("active")) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+
+      /* close when overlay clicked */
+
+      overlay.addEventListener("click", closeSidebar);
+
+      /* auto close when menu clicked */
+
+      sidebarLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth <= 768) {
+            closeSidebar();
+          }
+        });
+      });
     </script>
   </body>
 </html>

@@ -97,11 +97,95 @@
     .delete-btn:hover {
       opacity: 0.85;
     }
+    /* ===== MOBILE TOPBAR ===== */
+
+.mobile-topbar{
+  display:none;
+  background:var(--primary);
+  color:white;
+  padding:12px 20px;
+  align-items:center;
+  gap:15px;
+}
+
+.mobile-topbar button{
+  background:none;
+  border:none;
+  color:white;
+  font-size:22px;
+}
+
+.mobile-title{
+  font-family:"Cinzel", serif;
+}
+
+/* ===== SIDEBAR ANIMATION ===== */
+
+.sidebar{
+  transition:left 0.35s ease;
+}
+
+/* ===== DARK OVERLAY ===== */
+
+.sidebar-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.45);
+  opacity:0;
+  visibility:hidden;
+  transition:all 0.3s ease;
+  z-index:998;
+}
+
+.sidebar-overlay.active{
+  opacity:1;
+  visibility:visible;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width:768px){
+
+  .mobile-topbar{
+    display:flex;
+  }
+
+  .sidebar{
+    position:fixed;
+    left:-260px;
+    top:0;
+    width:260px;
+    height:100%;
+    z-index:999;
+  }
+
+  .sidebar.active{
+    left:0;
+  }
+
+  .main-content{
+    margin-left:0;
+    padding:20px;
+  }
+
+}
   </style>
 </head>
 
 <body>
 
+  <div class="sidebar-overlay"></div>
+
+<!-- ===== MOBILE TOPBAR ===== -->
+<div class="mobile-topbar d-md-none">
+  <button id="menu-toggle">
+    <i class="fas fa-bars"></i>
+  </button>
+  <span class="mobile-title">Lumidora Admin</span>
+</div>
 <div class="admin-wrapper">
 
   <!-- Sidebar -->
@@ -210,6 +294,46 @@ function deleteOrder(id) {
 renderOrders();
 
 </script>
+ <script>
+  /* ===== SIDEBAR TOGGLE ===== */
+
+const toggleBtn = document.getElementById("menu-toggle");
+const sidebar = document.querySelector(".sidebar");
+const overlay = document.querySelector(".sidebar-overlay");
+const sidebarLinks = document.querySelectorAll(".sidebar a");
+
+function openSidebar(){
+  sidebar.classList.add("active");
+  overlay.classList.add("active");
+}
+
+function closeSidebar(){
+  sidebar.classList.remove("active");
+  overlay.classList.remove("active");
+}
+
+toggleBtn.addEventListener("click", () => {
+  if(sidebar.classList.contains("active")){
+    closeSidebar();
+  } else {
+    openSidebar();
+  }
+});
+
+/* close when overlay clicked */
+
+overlay.addEventListener("click", closeSidebar);
+
+/* auto close when menu clicked */
+
+sidebarLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    if(window.innerWidth <= 768){
+      closeSidebar();
+    }
+  });
+});
+ </script>
 
 </body>
 </html>
